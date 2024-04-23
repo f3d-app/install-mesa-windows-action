@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.ref_name }}'
+  cancel-in-progress: true
+
+jobs:
+  hello_world_job:
+    runs-on: windows-latest
+    name: A job to test install mesa windows
+    steps:
+      - uses: actions/checkout@v4
+      - id: foo
+        uses: actions/install-mesa-windows-action@v1
+        with:
+          paths: test_dir
