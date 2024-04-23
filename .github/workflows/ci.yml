@@ -46,6 +46,4 @@ jobs:
 
     - name: Check F3D can render with success
       shell: cmd
-      run: |
-        dir .\f3d\F3D-2.4.0-Windows-x86_64
-        .\f3d\F3D-2.4.0-Windows-x86_64\bin\f3d.exe .\data\cow.vtp --resolution=300,300 --ref=.\data\TestSimple.png
+      run: .\f3d\F3D-2.4.0-Windows-x86_64\bin\f3d.exe .\data\cow.vtp --resolution=300,300 --ref=.\data\TestSimple.png
