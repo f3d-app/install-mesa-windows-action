@@ -17,7 +17,11 @@ jobs:
     name: A job to test install mesa windows
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: 'source'
+          fetch-depth: 0
+
       - id: foo
-        uses: actions/install-mesa-windows-action@v1
+        uses: ./source/install-mesa-windows-action
         with:
           paths: test_dir
