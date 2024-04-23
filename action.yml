@@ -1,0 +1,32 @@
+name: 'Install Mesa Windows'
+description: 'Install Mesa Windows binaries to a specific directory'
+inputs:
+  path:
+    description: 'path to install binaries to, supports wildcard'
+    required: true
+  version:
+    description: 'mesa version to install'
+    required: false
+    default: 23.3.5 
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Check required inputs
+      shell: bash
+      run: |
+        [[ "${{ inputs.path }}" ]] || { echo "path input is empty" ; exit 1; }
+
+    - name: Download and install Mesa windows
+      shell: powershell
+      run: |
+        mkdir install_mesa_local_dir
+        cd install_mesa_local_dir
+        curl.exe -L --output install_mesa_local_archive.7z --url https://github.com/pal1000/mesa-dist-win/releases/download/${{inputs.version}}/mesa3d-${{inputs.version}}-release-msvc.7z
+        C:\'Program Files'\7-Zip\7z.exe x install_mesa_local_archive.7z
+        # A * is added next line to force Get-ChildItem to look for directory within the path
+        Get-ChildItem -Directory ${{inputs.path}}* | ForEach-Object { Copy-Item -Path .\x64\opengl32.dll, .\x64\libglapi.dll, .\x64\libgallium_wgl.dll -Destination $_ }
+        echo "GALLIUM_DRIVER=llvmpipe"| Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        cd ..
+        rm .\install_mesa_local_dir -r -force
