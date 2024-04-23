@@ -39,7 +39,7 @@ jobs:
         path: 'source'
         fetch-depth: 0
 
-    - name: Test action
+    - name: Use mesa action
       uses: ./source/
       with:
         path: ${{github.workspace}}/f3d/F3D-2.4.0-Windows-x86_64/bin
