@@ -1,5 +1,8 @@
 name: 'Install Mesa Windows'
 description: 'Install Mesa Windows binaries to a specific directory'
+branding:
+  icon: 'arrow-down'
+  color: 'gray-dark'
 inputs:
   path:
     description: 'path to install binaries to, supports wildcard'
