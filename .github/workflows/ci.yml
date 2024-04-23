@@ -12,16 +12,17 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  hello_world_job:
+  ci:
     runs-on: windows-latest
-    name: A job to test install mesa windows
+    name: CI
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           path: 'source'
           fetch-depth: 0
 
-      - id: foo
-        uses: ./source/install-mesa-windows-action
+      - name: Test action
+        uses: ./source/
         with:
-          paths: test_dir
+          path: test_dir
