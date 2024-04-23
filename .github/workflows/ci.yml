@@ -42,7 +42,7 @@ jobs:
     - name: Test action
       uses: ./source/
       with:
-        path: f3d
+        path: f3d/F3D-2.4.0-Windows-x86_64/bin
 
     - name: Check F3D can render with success
       shell: bash
