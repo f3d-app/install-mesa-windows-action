@@ -6,7 +6,7 @@ from https://github.com/pal1000/mesa-dist-win into a designated folder.
 Just add this to your workflow:
 ```yaml
   - name: Install Mesa Windows
-    uses: f3d-app/install-mesa-windows-action@latest
+    uses: f3d-app/install-mesa-windows-action@v1
     with:
       path: ${{github.workspace}}/path/to/folder
 ```
@@ -22,7 +22,7 @@ Which mesa version to use can be set like this:
 
 ```yaml
   - name: Install Mesa Windows
-    uses: f3d-app/install-mesa-windows-action@latest
+    uses: f3d-app/install-mesa-windows-action@v1
     with:
       path: ${{github.workspace}}/path/to/folder
       version: 24.0.5
