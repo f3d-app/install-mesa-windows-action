@@ -16,6 +16,9 @@ will then just work out of the box.
 
 Note that this action will define `GALLIUM_DRIVER` environnement variable that is needed for mesa to work as expected.
 
+The path can contain wildcards, which means the mesa files can be copied to multiple directories in a single action use.
+If the directories do not exists, they will be created.
+
 ## Defining mesa version
 
 Which mesa version to use can be set like this:
