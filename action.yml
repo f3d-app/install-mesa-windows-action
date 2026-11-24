@@ -35,6 +35,6 @@ runs:
         # Create the directories if they do not exist
         Get-ChildItem -Directory ${{inputs.path}}* | ForEach-Object { New-Item -ItemType Directory -Force -Path $_ }
         # A * is added next line to force Get-ChildItem to look for directory within the path
-        Get-ChildItem -Directory ${{inputs.path}}* | ForEach-Object { Copy-Item -Path .\x64\opengl32.dll, .\x64\libEGL.dll -Destination $_ }
+        Get-ChildItem -Directory ${{inputs.path}}* | ForEach-Object { Copy-Item -Path .\opengl32.dll, .\libEGL.dll -Destination $_ }
         cd ..
         rm .\install_mesa_local_dir -r -force
