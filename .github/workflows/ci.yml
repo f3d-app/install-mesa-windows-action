@@ -47,8 +47,8 @@ jobs:
 
     - name: Check F3D can render with success using OpenGL
       shell: bash
-      run: ./f3d/F3D-4.0.1-Windows-x86_64/bin/f3d.exe ./data/cow.vtp --resolution=300,300 --rendering-backend=opengl --ref=./data/TestSimple.png
+      run: ./f3d/F3D-4.0.1-Windows-x86_64/bin/f3d.exe ./data/cow.vtp --resolution=300,300 --rendering-backend=opengl --reference=./data/TestSimple.png
 
     - name: Check F3D can render with success using EGL
       shell: bash
-      run: ./f3d/F3D-4.0.1-Windows-x86_64/bin/f3d.exe ./data/cow.vtp --resolution=300,300 --rendering-backend=egl --ref=./data/TestSimple.png
+      run: ./f3d/F3D-4.0.1-Windows-x86_64/bin/f3d.exe ./data/cow.vtp --resolution=300,300 --rendering-backend=egl --reference=./data/TestSimple.png
