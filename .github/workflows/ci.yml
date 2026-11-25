@@ -22,7 +22,7 @@ jobs:
       run: |
         mkdir f3d
         cd f3d
-        curl.exe -L --output f3d.zip --url https://github.com/f3d-app/f3d/releases/download/v2.4.0/F3D-2.4.0-Windows-x86_64.zip
+        curl.exe -L --output f3d.zip --url https://github.com/f3d-app/f3d/releases/download/v4.0.1/F3D-4.0.1-Windows-x86_64.zip
         C:\'Program Files'\7-Zip\7z.exe x f3d.zip
 
     - name: Download and extract data and baselines
@@ -30,8 +30,9 @@ jobs:
       run: |
         mkdir data
         cd data
-        curl.exe -L --output cow.vtp --url https://github.com/f3d-app/f3d-superbuild/raw/refs/tags/v2.4.0/testing/data/cow.vtp
-        curl.exe -L --output TestSimple.png --url https://github.com/f3d-app/f3d-superbuild/raw/refs/tags/v2.4.0/testing/baselines/TestSimple.png
+        curl.exe -L --output cow.vtp --url https://github.com/f3d-app/f3d-superbuild/raw/refs/tags/v4.0.1/testing/data/cow.vtp
+        curl.exe -L --output TestSimple.png --url https://github.com/f3d-app/f3d-superbuild/raw/refs/tags/v4.0.1/testing/baselines/TestSimple.png
+        curl.exe -L --output TestRenderingHeadlessEGL.png --url https://github.com/f3d-app/f3d-superbuild/raw/refs/tags/v4.0.1/testing/baselines/TestRenderingHeadlessEGL.png
 
     - name: Checkout
       uses: actions/checkout@v7
@@ -42,8 +43,12 @@ jobs:
     - name: Use mesa action
       uses: ./source/
       with:
-        path: ${{github.workspace}}/f3d/F3D-2.4.0-Windows-x86_64/bin
+        path: ${{github.workspace}}/f3d/F3D-4.0.1-Windows-x86_64/bin
 
-    - name: Check F3D can render with success
+    - name: Check F3D can render with success using OpenGL
       shell: bash
-      run: ./f3d/F3D-2.4.0-Windows-x86_64/bin/f3d.exe ./data/cow.vtp --resolution=300,300 --ref=./data/TestSimple.png
+      run: ./f3d/F3D-4.0.1-Windows-x86_64/bin/f3d.exe ./data/cow.vtp --resolution=300,300 --rendering-backend=opengl --ref=./data/TestSimple.png
+
+    - name: Check F3D can render with success using EGL
+      shell: bash
+      run: ./f3d/F3D-4.0.1-Windows-x86_64/bin/f3d.exe ./data/cow.vtp --resolution=300,300 --rendering-backend=egl --ref=./data/TestSimple.png
