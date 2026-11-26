@@ -10,7 +10,15 @@ inputs:
   version:
     description: 'mesa version to install'
     required: false
-    default: 23.3.5 
+    default: 26.3.1
+  cpu:
+    description: "CPU architecture to install"
+    required: false
+    default: "x64"
+  implementation:
+    description: "Implementation to install"
+    required: false
+    default: "llvmpipe"
 
 runs:
   using: "composite"
@@ -26,12 +34,11 @@ runs:
       run: |
         mkdir install_mesa_local_dir
         cd install_mesa_local_dir
-        curl.exe -L --output install_mesa_local_archive.7z --url https://github.com/pal1000/mesa-dist-win/releases/download/${{inputs.version}}/mesa3d-${{inputs.version}}-release-msvc.7z
+        curl.exe -L --output install_mesa_local_archive.7z --url https://github.com/mmozeiko/build-mesa/releases/download/${{inputs.version}}/mesa-${{inputs.implementation}}-${{inputs.cpu}}-${{inputs.version}}.7z
         C:\'Program Files'\7-Zip\7z.exe x install_mesa_local_archive.7z
         # Create the directories if they do not exist
         Get-ChildItem -Directory ${{inputs.path}}* | ForEach-Object { New-Item -ItemType Directory -Force -Path $_ }
         # A * is added next line to force Get-ChildItem to look for directory within the path
-        Get-ChildItem -Directory ${{inputs.path}}* | ForEach-Object { Copy-Item -Path .\x64\opengl32.dll, .\x64\libglapi.dll, .\x64\libgallium_wgl.dll -Destination $_ }
-        echo "GALLIUM_DRIVER=llvmpipe"| Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        Get-ChildItem -Directory ${{inputs.path}}* | ForEach-Object { Copy-Item -Path .\opengl32.dll, .\libEGL.dll -Destination $_ }
         cd ..
         rm .\install_mesa_local_dir -r -force
