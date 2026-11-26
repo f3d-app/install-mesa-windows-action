@@ -30,7 +30,7 @@ runs:
       run: |
         mkdir install_mesa_local_dir
         cd install_mesa_local_dir
-        curl.exe -L --output install_mesa_local_archive.7z --url https://github.com/mmozeiko/build-mesa/releases/download/${{inputs.version}}/mesa-d3d12-${{inputs.cpu}}-${{inputs.version}}.7z
+        curl.exe -L --output install_mesa_local_archive.7z --url https://github.com/mmozeiko/build-mesa/releases/download/${{inputs.version}}/mesa-llvm-${{inputs.cpu}}-${{inputs.version}}.7z
         C:\'Program Files'\7-Zip\7z.exe x install_mesa_local_archive.7z
         # Create the directories if they do not exist
         Get-ChildItem -Directory ${{inputs.path}}* | ForEach-Object { New-Item -ItemType Directory -Force -Path $_ }
